@@ -1,0 +1,202 @@
+def encoder():
+    
+    alphabet_qwerty_lower = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", 
+                             "v", "b", "n", "m"] # Used as plaintext, so lowercase
+    alphabet_upper = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", 
+                      "Y", "Z"] # Ciphertext in uppercase by convention
+    cipher = [] # Will append to this
+    encoded = [] # Will also append to this, but different from self.cipher
+    string = "" # So ciphertext is prettier
+
+    print("""
+    Welcome to the Encoder!
+
+    At present, we have a few options. Please enter:
+    A for QWERTY to ABCDEF
+    B for Caesar shift
+    C to manually set a cipher""")
+
+    choice = input("""
+    You have chosen:""")
+
+    if choice.lower() == "a": # a or A
+        
+        print("""
+        Welcome to the ABCboard!
+        
+        When finished, type 'abc' (as a single input) to see the result""")
+
+        def abcboard():
+            
+            nonlocal encoded
+            letter = input("""
+            Next letter:""")
+
+            if letter.lower() == "abc": # If the user types abc or ABC or whatever
+                output = string.join(encoded) # Turns the existing ciphertext list into a prettier string
+                print("""
+                The ABCboard has returned:""", output)
+                encoder() # Returns to the 'title screen'
+            elif letter.upper() in alphabet_upper:
+                for i in range(0, 26): # Scans through the alphabet...
+                    if letter.lower() == alphabet_qwerty_lower[i]: # ...until it finds the user's letter...
+                        letter = alphabet_upper[i] # ...whose index allows the computer to convert it to abcdef
+                        encoded.append(letter) # Adds the letter to the encoded list
+                        abcboard() # Allows the user to enter more letters
+            else: # If invalid input, e.g., "pdsfiofhf"
+                print("""
+                Not recognized; please enter a letter of the Latin alphabet""")
+                abcboard() # Gives the user another attempt
+
+        abcboard()
+
+    elif choice.lower() == "b": # b or B
+        
+        print("""
+        Ciphertext is shifted to the left of plaintext. How many letters should I shift by?""")
+
+        def shift():
+            
+            nonlocal alphabet_upper
+            nonlocal encoded
+            shift = input("""
+            Shift:""")
+
+            try: # Do this if possible...
+                shift = int(shift) # Check if the shift is an integer and convert
+            except ValueError: # ...but do this if the user enters it in word form
+                if shift.lower() == "one": # One, one, etc.
+                    shift = 1
+                elif shift.lower() == "two":
+                    shift = 2
+                elif shift.lower() == "three":
+                    shift = 3
+                elif shift.lower() == "four":
+                    shift = 4
+                elif shift.lower() == "five":
+                    shift = 5
+                elif shift.lower() == "six":
+                    shift = 6
+                elif shift.lower() == "seven":
+                    shift = 7
+                elif shift.lower() == "eight":
+                    shift = 8
+                elif shift.lower() == "nine":
+                    shift = 9
+                elif shift.lower() == "ten":
+                    shift = 10
+                elif shift.lower() == "eleven":
+                    shift = 11
+                elif shift.lower() == "twelve":
+                    shift = 12
+                elif shift.lower() == "thirteen":
+                    shift = 13
+                elif shift.lower() == "fourteen":
+                    shift = 14
+                elif shift.lower() == "fifteen":
+                    shift = 15
+                elif shift.lower() == "sixteen":
+                    shift = 16
+                elif shift.lower() == "seventeen":
+                    shift = 17
+                elif shift.lower() == "eighteen":
+                    shift = 18
+                elif shift.lower() == "nineteen":
+                    shift = 19
+                elif shift.lower() == "twenty":
+                    shift = 20
+                elif shift.lower() == "twentyone" or shift.lower() == "twenty-one" or shift.lower() == "twenty one": # Alternate spelling
+                    shift = 21
+                elif shift.lower() == "twentytwo" or shift.lower() == "twenty-two" or shift.lower() == "twenty two":
+                    shift = 22
+                elif shift.lower() == "twentythree" or shift.lower() == "twenty-three" or shift.lower() == "twenty three":
+                    shift = 23
+                elif shift.lower() == "twentyfour" or shift.lower() == "twenty-four" or shift.lower() == "twenty four":
+                    shift = 24
+                elif shift.lower() == "twentyfive" or shift.lower() == "twenty-five" or shift.lower() == "twenty five":
+                    shift = 25
+                else: # If invalid input, e.g., "pdsfiofhf"
+                    print("")
+                    print("Not recognized; please enter a number, 1 - 25") # Indentations for aesthetic reasons
+                    shift() # Gives the user another attempt
+
+            alphabet_upper_new = alphabet_upper[shift:] + alphabet_upper[:shift] # New shifted alphabet
+
+            print("""
+            When finished, type 'csr' (as a single input) to reveal ciphertext:""")
+
+            def caesar():
+                
+                nonlocal alphabet_upper
+                nonlocal encoded
+                letter = input("""
+                Next letter:""")
+
+                if letter.lower() == "csr": # csr or CSR or whatever
+                    output = string.join(encoded) # Turns the existing ciphertext list into a prettier string
+                    print("""
+                    Output:""", output)
+                    encoder() # Returns to the 'title screen'
+                elif letter.upper() in alphabet_upper:
+                    for i in range(0, 26): # Scans through the alphabet...
+                        if letter.upper() == alphabet_upper[i]: # ...until it finds the user's letter...
+                            letter = alphabet_upper_new[i] # ...whose index allows the computer to convert it to the predefined shifted
+                            encoded.append(letter) # Adds the letter to the encoded list
+                            caesar() # Allows the user to enter more letters
+                else: # If invalid input, e.g., "pdsfiofhf"
+                    print("""
+                    Not recognized; please enter a letter of the Latin alphabet""")
+                    caesar() # Gives the user another attempt
+
+            caesar()
+
+        shift()
+
+    elif choice.lower() == "c": # c or C
+        
+        def manual():
+            
+            nonlocal encoded
+            letter = input("""
+            Next letter:""")
+
+            if letter.lower() == "man": # Man or man or whatever
+                output = string.join(encoded) # Turns the existing ciphertext list into a prettier string
+                print("""
+                Output:""", output)
+                encoder() # Returns to the 'title screen'
+            elif letter.upper() in alphabet_upper:
+                for i in range(0, 26): # Scans through the alphabet...
+                    if letter.upper() == alphabet_upper[i]: # ...until it finds the user's letter...
+                        letter = cipher[i] # ...whose index allows the computer to convert it
+                        encoded.append(letter) # Adds the letter to the encoded list
+                        manual() # Allows the user to enter more letters
+            else: # If invalid input, e.g., "pdsfiofhf"
+                print("""
+                Not recognized; please enter a letter of the Latin alphabet""")
+                manual() # Gives the user another attempt
+
+        def setup():
+            
+            nonlocal alphabet_upper
+            nonlocal encoded
+            nonlocal cipher
+
+            for i in range(0, 26):
+                string = """
+                How should I encode: """ + str(alphabet_upper[i].lower()) + "?" # Separate line because input() takes one parameter
+                cipher_letter = input(string) # The above line changes to lowercase because it's plaintext
+                cipher.append(cipher_letter) # No restrictions; could encrypt letters as numbers, punctuation, letter-pairs
+
+            print("""
+            When finished, type 'man' (as a single input) to reveal ciphertext:""")
+            manual() # Runs the rest of the manual encryption
+
+        setup()
+
+    else:
+        print("""
+        Not recognized; please enter A, B, or C""")
+        encoder() # After the error message, the user can try again
+
+encoder() # Run the encoder function
