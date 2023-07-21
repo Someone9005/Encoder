@@ -2,8 +2,8 @@ def encoder():
     
     alphabet_qwerty_lower = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", 
                              "v", "b", "n", "m"] # Used as plaintext, so lowercase
-    alphabet_upper = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", 
-                      "Y", "Z"] # Ciphertext in uppercase by convention
+    alphabet_upper = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", 
+                      "X", "Y", "Z"] # Ciphertext in uppercase by convention
     cipher = [] # Will append to this
     encoded = [] # Will also append to this, but different from self.cipher
     string = "" # So ciphertext is prettier
@@ -198,5 +198,3 @@ def encoder():
         print("""
         Not recognized; please enter A, B, or C""")
         encoder() # After the error message, the user can try again
-
-encoder() # Run the encoder function
